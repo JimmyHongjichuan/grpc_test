@@ -46,7 +46,15 @@ func main() {
 	mGetName:=v.MethodByName("GetName")
 	args =[]reflect.Value{}
 	fmt.Println(mGetName.Call(args))
-	//fmt.Println(v.Elem().Bytes())
+
+	p := reflect.ValueOf(&u)
+	newValue := p.Elem()
+	fmt.Println("type of pointer:", newValue.Field(0))
+	fmt.Println("settability of pointer:", newValue.Field(0).CanSet() )
+	newValue.Field(0).Set(reflect.ValueOf("李四"))
+	fmt.Println(u.Name)
+	newValue.Field(0).SetString("王五")
+	fmt.Println(u.Name)
 	for i := 0; i < t.NumMethod(); i++ {
 		fmt.Println(t.Method(i).Name )
 	}
