@@ -3,11 +3,12 @@ package main
 import (
 	"reflect"
 	"fmt"
+	"encoding/json"
 )
 type User struct {
-	Name  string
-	Age   int
-	class string
+	Name  string `name`
+	Age   int `age`
+	class string `class`
 }
 
 func (user User) GetName() string {
@@ -58,7 +59,17 @@ func main() {
 	for i := 0; i < t.NumMethod(); i++ {
 		fmt.Println(t.Method(i).Name )
 	}
+
+	h:=`{"name":"洪六","age":36}`
+	err:=json.Unmarshal([]byte(h),&u)
+	if err!=nil{
+		fmt.Println(err)
+	}else {
+		fmt.Println(u)
+	}
+
 }
 
 //https://www.flysnow.org/2017/06/13/go-in-action-go-reflect.html
 //https://juejin.im/post/5a75a4fb5188257a82110544
+//https://riot.im/app
