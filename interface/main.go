@@ -3,6 +3,7 @@ package main
 import (
 	"math"
 	"fmt"
+	"github.com/JimmyHongjichuan/grpc_test/interface/compose"
 )
 
 // 几何图形的接口(interface)
@@ -41,8 +42,19 @@ func measure(g geometry, in float64) {
 	fmt.Println(g.area(in))
 	fmt.Println(g.perim(in))
 }
+type Node struct{
+	compose.BaseService
+}
+
+
+func (node Node)GetMsg() string {
+	return node.BaseService.Msg
+}
 
 func main() {
+	node := &Node{}
+	node.SetData("hello")
+	fmt.Println(node.GetMsg())
 	r := squr{}
 	c := circle{radius: 5}
 	// The circle and rect struct types both implement the geometry interface so we can use instances of these structs as arguments to measure.
